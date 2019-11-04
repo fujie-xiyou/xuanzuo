@@ -28,7 +28,8 @@ class XuanZuo:
                                     "Process/tools NetType/WIFI Language/zh_CN'")
 
         self.client = webdriver.Chrome(chrome_options=chrome_options,
-                                       executable_path='/Users/fujie/chromedriver')
+                                       executable_path=os.path.abspath(os.path.dirname(__file__)) +
+                                                       '/driver/chromedriver')
         print("客户端启动完成")
         self.client.get("http://wechat.v2.traceint.com")
         self.client.add_cookie({
@@ -53,5 +54,3 @@ def get_time():
 
 def time_print(text):
     print get_time() + ": " + str(text)
-
-
