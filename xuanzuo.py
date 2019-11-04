@@ -8,6 +8,8 @@ from selenium.common.exceptions import NoSuchElementException
 
 if __name__ == '__main__':
     xuanzuo = XuanZuo()
+    time_print("等待57秒")
+    time.sleep(57)
     while True:
         time_print("准备执行")
         timestamp = int(round(time.time() * 1000))
@@ -20,18 +22,20 @@ if __name__ == '__main__':
                 xuanzuo.save_screenshot("cookie失效")
                 break
             site = xuanzuo.client.find_element_by_xpath("//tr/td[not(@class)]")
+            # site = xuanzuo.client.find_element_by_xpath("//td[@class='disabled']")
             # //div[contains(@class,'grid_1')] 在自选座位界面选择一个可用的座位
-            time_print(title)
+            time_print("找到了座位：" + site.text)
             site.click()
-            time.sleep(3)
-            # tips = xuanzuo.client.find_element_by_id("ti_tips")
-            # time_print(tips.text)
-            xuanzuo.save_screenshot("成功")
+            time_print("点击了：" + site.text)
+            xuanzuo.save_screenshot("点击了座位按钮")
+            tips = xuanzuo.client.find_element_by_id("ti_tips")
+            time_print(tips.text)
 
         except NoSuchElementException as e:
+            print e.msg
             try:
                 text = xuanzuo.client.find_element_by_xpath("//h2[contains(text(),'不在预约时间内')]")
-                time_print("不在预约时间内")
+                time_print("不在预约时间内 " + str(int(round(time.time() * 1000)) - timestamp) + "ms")
             except NoSuchElementException as e:
                 time_print("没有座位了！！！")
                 xuanzuo.save_screenshot("没有座位了")
