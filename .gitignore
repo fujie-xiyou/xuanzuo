@@ -1,5 +1,6 @@
 /.idea
 /result
 /driver
+/log
 *.http
 *.pyc

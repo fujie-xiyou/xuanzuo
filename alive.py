@@ -18,5 +18,5 @@ if __name__ == '__main__':
             break
         time_print(title + " " + str(int(round(time.time() * 1000)) - timestamp) + "ms")
         print "-----------------------------------------"
-        time.sleep(5 * 60)
+        time.sleep(15 * 60)
     xuanzuo.client.quit()
