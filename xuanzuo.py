@@ -23,8 +23,9 @@ if __name__ == '__main__':
             # //div[contains(@class,'grid_1')] 在自选座位界面选择一个可用的座位
             time_print(title)
             site.click()
-            tips = xuanzuo.client.find_element_by_id("ti_tips")
-            time_print(tips.text)
+            time.sleep(3)
+            # tips = xuanzuo.client.find_element_by_id("ti_tips")
+            # time_print(tips.text)
             xuanzuo.save_screenshot("成功")
 
         except NoSuchElementException as e:

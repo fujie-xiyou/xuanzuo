@@ -4,3 +4,4 @@
 /log
 *.http
 *.pyc
+session.txt
