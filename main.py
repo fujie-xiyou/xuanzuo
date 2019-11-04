@@ -31,13 +31,14 @@ class XuanZuo:
                                        executable_path=cur_path +
                                                        '/driver/chromedriver')
         time_print("客户端启动完成")
-        self.client.get("http://wechat.v2.traceint.com")
         self.set_cookie()
 
     def set_cookie(self):
         time_print("更新cookie")
+        self.client.delete_all_cookies()
+        self.client.get("http://wechat.v2.traceint.com")
         with open(cur_path + "/session.txt") as f:
-            session_id = f.read()
+            session_id = f.read().strip()
         self.client.add_cookie({
             'domain': 'wechat.v2.traceint.com',
             'name': 'wechatSESS_ID',
