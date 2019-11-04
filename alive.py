@@ -13,10 +13,10 @@ if __name__ == '__main__':
 
         title = xuanzuo.client.title
         if not title:
-            print time_print("失败了")
-            xuanzuo.save_screenshot("失败了")
-            break
+            print time_print("cookie过期")
+            xuanzuo.save_screenshot("cookie过期")
+            xuanzuo.set_cookie()
         time_print(title + " " + str(int(round(time.time() * 1000)) - timestamp) + "ms")
         print "-----------------------------------------"
         time.sleep(15 * 60)
-    xuanzuo.client.quit()
+    # xuanzuo.client.quit()

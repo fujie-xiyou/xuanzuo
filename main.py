@@ -11,13 +11,10 @@ sys.setdefaultencoding('utf8')
 
 cur_path = os.path.abspath(os.path.dirname(__file__))
 
-with open(cur_path + "/session.txt") as f:
-    session_id = f.read()
-
 
 class XuanZuo:
     def __init__(self):
-        print("启动一个客户端")
+        time_print("启动一个客户端")
         chrome_options = Options()
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--remote-debugging-port=9222')
@@ -33,8 +30,14 @@ class XuanZuo:
         self.client = webdriver.Chrome(chrome_options=chrome_options,
                                        executable_path=cur_path +
                                                        '/driver/chromedriver')
-        print("客户端启动完成")
+        time_print("客户端启动完成")
         self.client.get("http://wechat.v2.traceint.com")
+        self.set_cookie()
+
+    def set_cookie(self):
+        time_print("更新cookie")
+        with open(cur_path + "/session.txt") as f:
+            session_id = f.read()
         self.client.add_cookie({
             'domain': 'wechat.v2.traceint.com',
             'name': 'wechatSESS_ID',
@@ -57,3 +60,12 @@ def get_time():
 
 def time_print(text):
     print get_time() + ": " + str(text)
+
+
+if __name__ == '__main__':
+    xuanz = XuanZuo()
+    print xuanz.client.get_cookies()
+    import time
+    time.sleep(30)
+    xuanz.set_cookie()
+    print xuanz.client.get_cookies()
