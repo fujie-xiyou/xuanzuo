@@ -9,7 +9,10 @@ import pytz
 reload(sys)
 sys.setdefaultencoding('utf8')
 
-session_id = "0ca7142aa291f0c5fe5c13db165a66d4ef49fc2664d32057"
+cur_path = os.path.abspath(os.path.dirname(__file__))
+
+with open(cur_path + "/session.txt") as f:
+    session_id = f.read()
 
 
 class XuanZuo:
@@ -28,7 +31,7 @@ class XuanZuo:
                                     "Process/tools NetType/WIFI Language/zh_CN'")
 
         self.client = webdriver.Chrome(chrome_options=chrome_options,
-                                       executable_path=os.path.abspath(os.path.dirname(__file__)) +
+                                       executable_path=cur_path +
                                                        '/driver/chromedriver')
         print("客户端启动完成")
         self.client.get("http://wechat.v2.traceint.com")
@@ -44,7 +47,7 @@ class XuanZuo:
         self.client.quit()
 
     def save_screenshot(self, title):
-        self.client.save_screenshot(os.path.abspath(os.path.dirname(__file__)) +
+        self.client.save_screenshot(cur_path +
                                     "/result/" + title + "-" + get_time() + ".png")
 
 
