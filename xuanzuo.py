@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import time
+from datetime import datetime, date, timedelta
 from main import XuanZuo
 from main import time_print
 from main import get_time
@@ -11,8 +12,12 @@ from selenium.webdriver.support import expected_conditions as EC
 
 if __name__ == '__main__':
     xuanzuo = XuanZuo()
-    time_print("等待56秒")
-    time.sleep(56)
+    d = date.today()
+    eight = datetime(d.year, d.month, d.day) + timedelta(hours=8)
+    stamp = time.mktime(eight.timetuple())
+    sec = stamp - time.time() - 1
+    time_print("等待%s秒" % sec)
+    time.sleep(sec)
     while True:
         time_print("准备执行")
         timestamp = int(round(time.time() * 1000))
@@ -35,12 +40,14 @@ if __name__ == '__main__':
             site = xuanzuo.client.find_element_by_xpath("//tr/td[not(@class)]")
             # site = xuanzuo.client.find_element_by_xpath("//td[@class='disabled']")
             # //div[contains(@class,'grid_1')] 在自选座位界面选择一个可用的座位
-            time_print("找到了座位：" + site.text)
+            time_print("找到了座位：" + site.text + " " + str(int(round(time.time() * 1000)) - timestamp) + "ms")
+            timestamp = int(round(time.time() * 1000))
             site.click()
-            time_print("点击了：" + site.text)
+            time_print("点击了：" + site.text + " " + str(int(round(time.time() * 1000)) - timestamp) + "ms")
             xuanzuo.save_screenshot("点击了座位按钮")
+            timestamp = int(round(time.time() * 1000))
             tips = WebDriverWait(xuanzuo.client, 2, 0.1).until(EC.presence_of_element_located((By.ID, "ti_tips")))
-            time_print(tips.text)
+            time_print(tips.text + " " + str(int(round(time.time() * 1000)) - timestamp) + "ms")
             xuanzuo.save_screenshot(tips.text)
             if tips.text == "预定座位成功":
                 break
