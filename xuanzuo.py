@@ -76,3 +76,4 @@ if __name__ == '__main__':
     print "-" * 40
 
     xuanzuo.close_clint()
+    mailObj.stmpObj.quit()
