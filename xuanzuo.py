@@ -8,10 +8,10 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from mail import Email
+from mail import MyQQEmail
 
 if __name__ == '__main__':
-    mailObj = Email("smtp.qq.com", 465, "fujie.me", "授权码")
+    mailObj = MyQQEmail()
     xuanzuo = XuanZuo()
     try:
         d = date.today()

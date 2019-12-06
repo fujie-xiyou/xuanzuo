@@ -1,12 +1,12 @@
 # coding: utf-8
 import time
 
-from mail import Email
+from mail import MyQQEmail
 from main import XuanZuo
 from main import time_print
 
 if __name__ == '__main__':
-    mailObj = Email("smtp.qq.com", 465, "fujie.me", "授权码")
+    mailObj = MyQQEmail()
     xuanzuo = XuanZuo()
     while True:
         time_print("准备执行")

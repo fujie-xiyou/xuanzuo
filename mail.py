@@ -7,10 +7,10 @@ from email.header import Header
 from main import time_print, cur_path
 
 
-class Email:
-    def __init__(self, host, port, user, password):
-        self.stmpObj = smtplib.SMTP_SSL(host, port)
-        self.stmpObj.login(user, password)
+class MyQQEmail:
+    def __init__(self):
+        self.stmpObj = smtplib.SMTP_SSL("smtp.qq.com", 465)
+        self.stmpObj.login("fujie.me", "授权码")
 
     def send_mail(self, sender, receivers, subject, msg, image_file_name=None):
         message = MIMEMultipart('related')
