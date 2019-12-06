@@ -52,8 +52,10 @@ class XuanZuo:
         self.client.quit()
 
     def save_screenshot(self, title):
+        file_name = title + "-" + get_time() + ".png"
         self.client.save_screenshot(cur_path +
-                                    "/result/" + title + "-" + get_time() + ".png")
+                                    "/result/" + file_name)
+        return file_name
 
 
 def get_time():

@@ -8,8 +8,10 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from mail import Email
 
 if __name__ == '__main__':
+    mailObj = Email("smtp.qq.com", 465, "fujie.me", "授权码")
     xuanzuo = XuanZuo()
     try:
         d = date.today()
@@ -47,19 +49,29 @@ if __name__ == '__main__':
             timestamp = int(round(time.time() * 1000))
             tips = WebDriverWait(xuanzuo.client, 2, 0.1).until(EC.presence_of_element_located((By.ID, "ti_tips")))
             time_print(tips.text, timestamp)
-            xuanzuo.save_screenshot(tips.text)
+            file_name = xuanzuo.save_screenshot(tips.text)
             if tips.text == "预定座位成功":
+                mailObj.send_mail("fujie.me@qq.com",
+                                  ["fujie@xiyoulinux.org", "2931501182@qq.com", "907071163@qq.com"],
+                                  tips.text, "成功预订了：" + site.text, file_name)
+
                 print "-" * 40
                 break
 
     except NoSuchElementException as e:
         print e.msg
         time_print("没有座位了！！！")
-        xuanzuo.save_screenshot("没有座位了")
+        file_name = xuanzuo.save_screenshot("没有座位了")
+        mailObj.send_mail("fujie.me@qq.com",
+                          ["fujie@xiyoulinux.org", "907071163@qq.com"],
+                          "抢座失败！", "没有座位了。。", file_name)
 
     except IOError as e:
         print "出错了"
         print e
+        mailObj.send_mail("fujie.me@qq.com",
+                          ["fujie@xiyoulinux.org", "907071163@qq.com"],
+                          "出错了", "错误信息：<br/>" + str(e))
 
     print "-" * 40
 
