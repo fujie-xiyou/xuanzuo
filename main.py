@@ -5,6 +5,7 @@ from datetime import datetime
 import sys
 import os
 import pytz
+import time
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -59,8 +60,15 @@ def get_time():
     return datetime.now(pytz.timezone("Asia/Shanghai")).strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
 
 
-def time_print(text):
-    print get_time() + ": " + str(text)
+def time_print(text, timestamp=None):
+    if timestamp:
+        print get_time() + ": " + str(text) + " " + str(int(round(time.time() * 1000)) - timestamp) + "ms"
+    else:
+        print get_time() + ": " + str(text)
+
+
+def get_ms_timestamp():
+    return int(round(time.time() * 1000))
 
 
 if __name__ == '__main__':

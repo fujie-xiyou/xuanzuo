@@ -1,2 +1,5 @@
-import os
-print os.path.abspath(os.path.dirname(__file__))
+import time
+while True:
+    print "123"
+    time.sleep(60)
+

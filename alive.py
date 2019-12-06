@@ -16,7 +16,11 @@ if __name__ == '__main__':
             print time_print("cookie过期")
             xuanzuo.save_screenshot("cookie过期")
             xuanzuo.set_cookie()
-        time_print(title + " " + str(int(round(time.time() * 1000)) - timestamp) + "ms")
-        print "-----------------------------------------"
-        time.sleep(15 * 60)
-    # xuanzuo.client.quit()
+        time_print(title, timestamp)
+        print "-" * 40
+        try:
+            time.sleep(15 * 60)
+        except KeyboardInterrupt as e:
+            xuanzuo.client.quit()
+            print "手动终止"
+            break
