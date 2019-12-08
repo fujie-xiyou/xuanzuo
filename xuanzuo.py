@@ -27,11 +27,9 @@ if __name__ == '__main__':
             # print client.page_source
             if len(xuanzuo.client.find_elements_by_xpath("//h2[contains(text(),'不在预约时间内')]")) > 0:
                 time_print("不在预约时间内", timestamp)
-                print "-" * 40
                 continue
             if len(xuanzuo.client.find_elements_by_xpath("//h2[contains(text(),'你已经预定了明天')]")) > 0:
                 time_print("已经预定过了！", timestamp)
-                print "-" * 40
                 break
             title = xuanzuo.client.title
             if not title:
@@ -50,12 +48,10 @@ if __name__ == '__main__':
             tips = WebDriverWait(xuanzuo.client, 2, 0.1).until(EC.presence_of_element_located((By.ID, "ti_tips")))
             time_print(tips.text, timestamp)
             file_name = xuanzuo.save_screenshot(tips.text)
-            if tips.text == "预定座位成功":
+            if str(tips.text) == "预定座位成功":
                 mailObj.send_mail("fujie.me@qq.com",
                                   ["fujie@xiyoulinux.org", "2931501182@qq.com", "907071163@qq.com"],
                                   tips.text, "成功预订了：" + site.text, file_name)
-
-                print "-" * 40
                 break
 
     except NoSuchElementException as e:
