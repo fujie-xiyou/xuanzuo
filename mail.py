@@ -44,5 +44,5 @@ class MyQQEmail:
 
 
 if __name__ == '__main__':
-    mail = Email("smtp.qq.com", 465, "fujie.me", "授权码")
+    mail = MyQQEmail()
     mail.send_mail("fujie.me@qq.com", ["fujie@xiyoulinux.org", "1014810037@qq.com"], "测试标题", "测试内容", "没有座位了-2019-11-05 22:53:20.651.png")
