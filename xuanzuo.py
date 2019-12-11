@@ -34,7 +34,10 @@ if __name__ == '__main__':
             title = xuanzuo.client.title
             if not title:
                 time_print("cookie失效！！！")
-                xuanzuo.save_screenshot("cookie失效")
+                file_name = xuanzuo.save_screenshot("cookie失效")
+                mailObj.send_mail("fujie.me@qq.com",
+                                  ["fujie@xiyoulinux.org", "907071163@qq.com"],
+                                  "抢座失败！", "cookie过期，请及时更新", file_name)
                 break
             site = xuanzuo.client.find_element_by_xpath("//tr/td[not(@class)]")
             # site = xuanzuo.client.find_element_by_xpath("//td[@class='disabled']")
@@ -47,8 +50,9 @@ if __name__ == '__main__':
             timestamp = int(round(time.time() * 1000))
             tips = WebDriverWait(xuanzuo.client, 2, 0.1).until(EC.presence_of_element_located((By.ID, "ti_tips")))
             time_print(tips.text, timestamp)
-            file_name = xuanzuo.save_screenshot(tips.text)
-            if str(tips.text) == "预定座位成功":
+            file_name = xuanzuo.save_screenshot(str(tips.text))
+            time_print("tips.text的类型：%s" % type(tips.text))
+            if tips.text == u"预定座位成功" or str(tips.text) == "预定座位成功":
                 mailObj.send_mail("fujie.me@qq.com",
                                   ["fujie@xiyoulinux.org", "2931501182@qq.com", "907071163@qq.com"],
                                   tips.text, "成功预订了：" + site.text, file_name)
