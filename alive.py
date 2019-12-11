@@ -33,5 +33,5 @@ if __name__ == '__main__':
         except Exception as e:
             time_print("异常终止：%s" % e)
             break
-
+    print "-" * 40
     xuanzuo.client.quit()
