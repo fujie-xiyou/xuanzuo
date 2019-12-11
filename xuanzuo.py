@@ -18,8 +18,11 @@ if __name__ == '__main__':
         eight = datetime(d.year, d.month, d.day) + timedelta(hours=8)
         stamp = time.mktime(eight.timetuple())
         sec = stamp - time.time() - 1
-        time_print("等待%s秒" % sec)
-        time.sleep(sec)
+        if sec < 0:
+            time_print("已经过了8点了")
+        else:
+            time_print("等待%s秒" % sec)
+            time.sleep(sec)
         while True:
             time_print("准备执行")
             timestamp = int(round(time.time() * 1000))
@@ -66,14 +69,13 @@ if __name__ == '__main__':
                           ["fujie@xiyoulinux.org", "907071163@qq.com"],
                           "抢座失败！", "没有座位了。。", file_name)
 
-    except IOError as e:
+    except Exception as e:
         print "出错了"
         print e
         mailObj.send_mail("fujie.me@qq.com",
                           ["fujie@xiyoulinux.org", "907071163@qq.com"],
                           "出错了", "错误信息：<br/>" + str(e))
-
-    print "-" * 40
-
-    xuanzuo.close_clint()
-    mailObj.stmpObj.quit()
+    else:
+        xuanzuo.close_clint()
+        mailObj.stmpObj.quit()
+        print "-" * 40
