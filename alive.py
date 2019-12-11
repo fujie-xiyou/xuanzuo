@@ -28,6 +28,10 @@ if __name__ == '__main__':
         try:
             time.sleep(15 * 60)
         except KeyboardInterrupt as e:
-            print "手动终止"
+            time_print("手动终止 %s" % e)
             break
+        except Exception as e:
+            time_print("异常终止：%s" % e)
+            break
+
     xuanzuo.client.quit()
